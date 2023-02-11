@@ -7,17 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Corona Admin</title>
     <!-- plugins:css -->
-    <link rel="stylesheet" href="/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" th:href="@{/vendors/mdi/css/materialdesignicons.min.css}">
+    <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="/images/favicon.png" />
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}" />
 </head>
 <body>
 
@@ -27,16 +27,16 @@
 
 <div th:fragment="script">
 <!-- plugins:js -->
-<script src="/static/vendors/js/vendor.bundle.base.js"></script>
+<script th:src="@{/static/vendors/js/vendor.bundle.base.js}"></script>
 <!-- endinject -->
 <!-- Plugin js for this page -->
 <!-- End plugin js for this page -->
 <!-- inject:js -->
-<script src="/js/off-canvas.js"></script>
-<script src="/js/hoverable-collapse.js"></script>
-<script src="/js/misc.js"></script>
-<script src="/js/settings.js"></script>
-<script src="/js/todolist.js"></script>
+<script th:src="@{/js/off-canvas.js}"></script>
+<script th:src="@{/js/hoverable-collapse.js}"></script>
+<script th:src="@{/js/misc.js}"></script>
+<script th:src="@{/js/settings.js}"></script>
+<script th:src="@{/js/todolist.js}"></script>
 <!-- endinject -->
 </div>
 
