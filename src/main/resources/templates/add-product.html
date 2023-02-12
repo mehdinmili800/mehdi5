@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+  <head th:replace="fragments :: head">
+
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:../../partials/_sidebar.html -->
+      <nav th:replace="fragments :: sidebar">
+
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:../../partials/_navbar.html -->
+        <nav th:replace="fragments :: navbar">
+
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="page-header">
+              <h3 class="page-title"> Form elements </h3>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Forms</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Form elements</li>
+                </ol>
+              </nav>
+            </div>
+        <div class="row">
+          <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Default form</h4>
+                <p class="card-description"> Basic form layout </p>
+                <form class="forms-sample" th:action="@{/save-product}" method="post" enctype="multipart/form-data" th:object = "${product}">
+
+
+
+
+                  <div class="form-group">
+                    <label for="name">Name</label>
+                    <input th:field = "*{name}"  class="form-control" id="name" placeholder="name">
+                  </div>
+                  <div class="form-group">
+                    <label for="costPrice">Cost Price</label>
+                    <input name="price" th:field = "*{costPrice}" class="form-control" id="costPrice" placeholder="costPrice">
+                  </div>
+                  <div class="form-group">
+                    <label for="currentQuantity">CurrentQuantity</label>
+                    <input th:field = "*{currentQuantity}" class="form-control" id="currentQuantity" placeholder="currentQuantity">
+                  </div>
+                  <div class="form-group">
+
+                    <td><img src="" style="height: 40px; width: 40px;" th:src = "*{'data:image/jpeg;base64,' + {product.image}}"></td>
+                  </div>
+                  <div class="form-check form-check-flat form-check-primary">
+                    <label class="form-check-label">
+                      <input type="checkbox" class="form-check-input"> Remember me </label>
+                  </div>
+                  <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                  <button class="btn btn-dark">Cancel</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+          <!-- partial:../../partials/_footer.html -->
+          <footer th:replace="fragments :: footer">
+
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+      </div>
+    </div>
+
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+
+    <div th:replace="fragments :: script"></div>
+  </body>
+</html>
