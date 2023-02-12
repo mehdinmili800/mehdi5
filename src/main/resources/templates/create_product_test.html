@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+
+</head>
+<body>
+<div class="container-scroller">
+  <!-- partial:../../partials/_sidebar.html -->
+  <nav th:replace="fragments :: sidebar">
+
+  </nav>
+  <!-- partial -->
+  <div class="container-fluid page-body-wrapper">
+    <!-- partial:../../partials/_navbar.html -->
+    <nav th:replace="fragments :: navbar">
+    </nav>
+
+    <!-- partial -->
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="page-header">
+          <h3 class="page-title"> Form elements </h3>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Forms</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Form elements</li>
+            </ol>
+          </nav>
+        </div>
+
+
+
+        <div class="row">
+          <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Default form</h4>
+                <p class="card-description"> Basic form layout </p>
+                <form th:action="@{/students}" th:object = "${student}" method="POST">
+                  <div class="form-group">
+                    <label for="exampleInputUsername1">Name</label>
+                    <input type="text" class="form-control"
+                           name = "name"
+                           th:field = "*{name}"
+                           id="exampleInputUsername1" placeholder="Username">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputdescription">Description</label>
+                    <input type="text" class="form-control"
+                           name = "description"
+                           th:field = "*{description}"
+                           id="exampleInputdescription" placeholder="Username">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputcostPrice">CostPrice</label>
+                    <input type="text" class="form-control"
+                           name = "costPrice"
+                           th:field = "*{costPrice}"
+                           id="exampleInputcostPrice" placeholder="Username">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleInputsalePrice">SalePrice</label>
+                    <input type="text" class="form-control"
+                           name = "salePrice"
+                           th:field = "*{salePrice}"
+                           id="exampleInputsalePrice" placeholder="Username">
+                  </div>
+                  <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                  <button class="btn btn-dark">Cancel</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- partial:../../partials/_footer.html -->
+            <footer th:replace="fragments :: footer">
+
+            </footer>
+            <!-- partial -->
+
+            <!-- main-panel ends -->
+          </div>
+          <!-- page-body-wrapper ends -->
+        </div>
+    </div>
+  </div>
+</div>
+
+        <!-- container-scroller -->
+        <!-- plugins:js -->
+
+        <div th:replace="fragments :: script"></div>
+  </body>
+</html>

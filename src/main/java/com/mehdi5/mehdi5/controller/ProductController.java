@@ -2,6 +2,7 @@ package com.mehdi5.mehdi5.controller;
 
 
 import com.mehdi5.mehdi5.dto.ProductDto;
+import com.mehdi5.mehdi5.model.Product;
 import com.mehdi5.mehdi5.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,44 +18,45 @@ import java.util.List;
 @Controller
 public class ProductController {
 
-    @Autowired
     private ProductService productService;
 
-
+    public ProductController(ProductService studentService) {
+        super();
+        this.productService = studentService;
+    }
 
     @GetMapping("/products")
-    public String products(Principal principal){
-        if (principal == null){
-            return "redirect:/login";
-        }
-
-        List<ProductDto> productDtoList = productService.findAll();
-
+    public String listProducts(Model model) {
+        model.addAttribute("products", productService.getAllProducts());
         return "products";
     }
 
-    @GetMapping("/add-product")
-    public String addProductForm(Model model, Principal principal){
-        if(principal == null){
-            return "redirect:/login";
-        }
 
-        model.addAttribute("product", new ProductDto());
-        return "add-product";
+    @GetMapping("/products/new")
+    public String createProductForm(Model model) {
+
+        // create student object to hold student form data
+        Product product = new Product();
+        model.addAttribute("product", product);
+        return "create_product";
+
     }
 
-    @PostMapping("/save-product")
-    public String saveProduct(@ModelAttribute("product")ProductDto productDto,
-                              @RequestParam("imageProduct")MultipartFile imageProduct,
-                              RedirectAttributes attributes){
-        try {
-            productService.save(imageProduct, productDto);
-            attributes.addFlashAttribute("success", "Add successfully!");
-        }catch (Exception e){
-            e.printStackTrace();
-            attributes.addFlashAttribute("error", "Failed to add!");
-        }
-        return "redirect:/products/0";
+
+    @PostMapping("/products")
+    public String saveProduct(@ModelAttribute("product") Product product) {
+        productService.saveProduct(product);
+        return "redirect:/products";
     }
+
+
+
+
+
+
+
+
+
+
 
 }
