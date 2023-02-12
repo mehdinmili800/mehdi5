@@ -23,6 +23,9 @@ public class ProductServiceImpl implements ProductService {
 
     private ProductRepository productRepository;
 
+    @Autowired
+    private ImageUpload imageUpload;
+
     public ProductServiceImpl(ProductRepository studentRepository) {
         super();
         this.productRepository = studentRepository;
@@ -35,10 +38,25 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product saveProduct(Product product) {
-        return productRepository.save(product);
-    }
+    public Product saveProduct(ProductDto productDto, MultipartFile imageProduct) {
 
+        try {
+        Product product = new Product();
+        if(imageProduct == null){
+            product.setImage(null);
+        }else{
+            if(imageUpload.uploadImage(imageProduct)){
+                System.out.println("Upload successfully");
+            }
+            product.setImage(Base64.getEncoder().encodeToString(imageProduct.getBytes()));
+        }
+        return productRepository.save(product);
+    }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
     @Override
     public Product getProductById(Long id) {
         return productRepository.findById(id).get();

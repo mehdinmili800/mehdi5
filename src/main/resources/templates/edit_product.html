@@ -37,7 +37,7 @@
                   <div class="card-body">
                     <h4 class="card-title">Default form</h4>
                     <p class="card-description"> Basic form layout </p>
-                    <form  th:action="@{/products}" enctype="multipart/form-data" th:object = "${product}" method="POST">
+                    <form th:action="@{/products/{id} (id=${product.id})}" th:object = "${product}" method="POST">
 
                       <div class="form-group">
                         <label for="exampleInputUsername1">Name</label>

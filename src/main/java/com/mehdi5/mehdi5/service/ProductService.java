@@ -11,7 +11,7 @@ import java.util.List;
 public interface ProductService {
     List<Product> getAllProducts();
 
-    Product saveProduct(Product product);
+    Product saveProduct(ProductDto productDto, MultipartFile imageProduct);
 
     Product getProductById(Long id);
 

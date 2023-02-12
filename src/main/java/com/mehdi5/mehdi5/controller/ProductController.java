@@ -44,11 +44,44 @@ public class ProductController {
 
 
     @PostMapping("/products")
-    public String saveProduct(@ModelAttribute("product") Product product) {
-        productService.saveProduct(product);
+    public String saveProduct(@ModelAttribute("product") ProductDto productDto,
+                              @RequestParam("imageProduct")MultipartFile imageProduct) {
+        productService.saveProduct(productDto ,imageProduct);
         return "redirect:/products";
     }
 
+
+    @GetMapping("/students/edit/{id}")
+    public String editProductForm(@PathVariable Long id, Model model) {
+        model.addAttribute("product", productService.getProductById(id));
+        return "edit_product";
+    }
+
+
+    @PostMapping("/products/{id}")
+    public String updateStudent(@PathVariable Long id,
+                                @ModelAttribute("student") Product student,
+                                Model model) {
+
+        // get student from database by id
+        Product existingProduct = productService.getProductById(id);
+        existingProduct.setId(id);
+        existingProduct.setName(student.getName());
+        existingProduct.setDescription(student.getDescription());
+        existingProduct.setCostPrice(student.getCostPrice());
+        existingProduct.setSalePrice(student.getSalePrice());
+
+        // save updated student object
+        productService.updateProduct(existingProduct);
+        return "redirect:/products";
+    }
+
+
+    @GetMapping("/products/{id}")
+    public String deleteStudent(@PathVariable Long id) {
+        productService.deleteProductById(id);
+        return "redirect:/products";
+    }
 
 
 
