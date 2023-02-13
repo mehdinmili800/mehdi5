@@ -51,7 +51,7 @@ public class ProductController {
     }
 
 
-    @GetMapping("/students/edit/{id}")
+    @GetMapping("/products/edit/{id}")
     public String editProductForm(@PathVariable Long id, Model model) {
         model.addAttribute("product", productService.getProductById(id));
         return "edit_product";
@@ -59,27 +59,24 @@ public class ProductController {
 
 
     @PostMapping("/products/{id}")
-    public String updateStudent(@PathVariable Long id,
-                                @ModelAttribute("student") Product student,
-                                Model model) {
-
-        // get student from database by id
-        Product existingProduct = productService.getProductById(id);
-        existingProduct.setId(id);
-        existingProduct.setName(student.getName());
-        existingProduct.setDescription(student.getDescription());
-        existingProduct.setCostPrice(student.getCostPrice());
-        existingProduct.setSalePrice(student.getSalePrice());
-
-        // save updated student object
-        productService.updateProduct(existingProduct);
+    public String updateStudent(@PathVariable("id") Long id, Model model, Principal principal) {
+        if(principal == null){
+            return "redirect:/login";
+        }
+        model.addAttribute("title", "Update products");
+        ProductDto productDto = productService.getById(id);
+        model.addAttribute("productDto", productDto);
         return "redirect:/products";
     }
 
 
     @GetMapping("/products/{id}")
-    public String deleteStudent(@PathVariable Long id) {
-        productService.deleteProductById(id);
+    public String deletedProduct(@PathVariable("id") Long id, RedirectAttributes attributes){
+        try {
+            productService.deleteById(id);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return "redirect:/products";
     }
 

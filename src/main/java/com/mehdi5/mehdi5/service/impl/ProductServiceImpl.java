@@ -63,13 +63,50 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(Product product) {
-        return productRepository.save(product);
+    public Product updateProduct(MultipartFile imageProduct ,ProductDto productDto) {
+        try {
+            Product product = productRepository.getById(productDto.getId());
+            if(imageProduct == null){
+                product.setImage(product.getImage());
+            }else{
+                if(imageUpload.checkExisted(imageProduct) == false){
+                    imageUpload.uploadImage(imageProduct);
+                }
+                product.setImage(Base64.getEncoder().encodeToString(imageProduct.getBytes()));
+            }
+            product.setName(productDto.getName());
+            product.setDescription(productDto.getDescription());
+            product.setSalePrice(productDto.getSalePrice());
+            product.setCostPrice(productDto.getCostPrice());
+            product.setCurrentQuantity(productDto.getCurrentQuantity());
+
+            return productRepository.save(product);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public void deleteProductById(Long id) {
-        productRepository.deleteById(id);
+    public ProductDto getById(Long id) {
+        Product product = productRepository.getById(id);
+        ProductDto productDto = new ProductDto();
+        productDto.setId(product.getId());
+        productDto.setName(product.getName());
+        productDto.setDescription(product.getDescription());
+        productDto.setCurrentQuantity(product.getCurrentQuantity());
 
+        productDto.setSalePrice(product.getSalePrice());
+        productDto.setCostPrice(product.getCostPrice());
+        productDto.setImage(product.getImage());
+        productDto.setDeleted(product.is_deleted());
+        productDto.setActivated(product.is_activated());
+        return productDto;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        Product product = productRepository.getById(id);
+        productRepository.save(product);
     }
 }
