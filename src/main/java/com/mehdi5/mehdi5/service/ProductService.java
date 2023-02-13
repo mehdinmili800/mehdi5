@@ -19,4 +19,15 @@ public interface ProductService {
 
 
     void deleteById(Long id);
+
+    /*TEST*/
+
+
+    List<Product> filterHighPrice();
+
+    List<Product> filterLowPrice();
+
+
+    List<Product> listViewProducts();
+
 }

@@ -82,6 +82,32 @@ public class ProductController {
     }
 
 
+    /*TEST*/
+
+    @GetMapping("/high-price")
+    public String filterHighPrice(Model model){
+        List<Product> products = productService.getAllProducts();
+        List<Product> listViewProducts = productService.listViewProducts();
+        products = productService.filterHighPrice();
+        model.addAttribute("viewProducts", listViewProducts);
+        model.addAttribute("products", products);
+
+        return "filter-high-price";
+    }
+
+
+    @GetMapping("/low-price")
+    public String filterLowPrice(Model model){
+        List<Product> products = productService.filterLowPrice();
+        model.addAttribute("products", products);
+        return "filter-low-price";
+    }
+
+
+
+
+
+
 
 
 
