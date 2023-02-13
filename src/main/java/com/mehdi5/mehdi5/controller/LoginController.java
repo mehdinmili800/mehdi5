@@ -33,6 +33,12 @@ public class LoginController {
         return "login";
     }
 
+    @GetMapping("/logout")
+    public String logoutForm(Model model){
+
+        return "login";
+    }
+
     @RequestMapping("/index")
     public String home(Model model){
         model.addAttribute("title", "Home Page");
