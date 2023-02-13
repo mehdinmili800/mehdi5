@@ -1,5 +1,6 @@
 package com.mehdi5.mehdi5.repositrory;
 
+import com.mehdi5.mehdi5.dto.ProductDto;
 import com.mehdi5.mehdi5.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

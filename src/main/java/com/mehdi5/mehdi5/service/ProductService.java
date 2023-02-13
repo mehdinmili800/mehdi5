@@ -11,12 +11,12 @@ import java.util.List;
 public interface ProductService {
     List<Product> getAllProducts();
 
-    Product saveProduct(ProductDto productDto, MultipartFile imageProduct);
+    Product saveProduct(Product Product);
 
     Product getProductById(Long id);
 
-    Product updateProduct(MultipartFile imageProduct,ProductDto productDto);
-    ProductDto getById(Long id);
+    Product updateProduct(Product Product);
+
 
     void deleteById(Long id);
 }

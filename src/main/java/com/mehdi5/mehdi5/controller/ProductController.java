@@ -20,9 +20,9 @@ public class ProductController {
 
     private ProductService productService;
 
-    public ProductController(ProductService studentService) {
+    public ProductController(ProductService productService) {
         super();
-        this.productService = studentService;
+        this.productService = productService;
     }
 
     @GetMapping("/products")
@@ -35,20 +35,19 @@ public class ProductController {
     @GetMapping("/products/new")
     public String createProductForm(Model model) {
 
-        // create student object to hold student form data
+        // create product object to hold student form data
         Product product = new Product();
         model.addAttribute("product", product);
         return "create_product";
 
     }
 
-
     @PostMapping("/products")
-    public String saveProduct(@ModelAttribute("product") ProductDto productDto,
-                              @RequestParam("imageProduct")MultipartFile imageProduct) {
-        productService.saveProduct(productDto ,imageProduct);
+    public String saveProduct(@ModelAttribute("student") Product product) {
+        productService.saveProduct(product);
         return "redirect:/products";
     }
+
 
 
     @GetMapping("/products/edit/{id}")
@@ -59,30 +58,28 @@ public class ProductController {
 
 
     @PostMapping("/products/{id}")
-    public String updateStudent(@PathVariable("id") Long id, Model model, Principal principal) {
-        if(principal == null){
-            return "redirect:/login";
-        }
-        model.addAttribute("title", "Update products");
-        ProductDto productDto = productService.getById(id);
-        model.addAttribute("productDto", productDto);
+    public String updateProduct(@PathVariable Long id,
+                                @ModelAttribute("product") Product product,
+                                Model model) {
+
+        // get product from database by id
+        Product existingProduct = productService.getProductById(id);
+        existingProduct.setId(id);
+        existingProduct.setName(product.getName());
+        existingProduct.setDescription(product.getDescription());
+        existingProduct.setCostPrice(product.getCostPrice());
+        existingProduct.setSalePrice(product.getSalePrice());
+
+        // save updated product object
+        productService.updateProduct(existingProduct);
         return "redirect:/products";
     }
-
 
     @GetMapping("/products/{id}")
-    public String deletedProduct(@PathVariable("id") Long id, RedirectAttributes attributes){
-        try {
-            productService.deleteById(id);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+    public String deleteProduct(@PathVariable Long id) {
+        productService.deleteById(id);
         return "redirect:/products";
     }
-
-
-
-
 
 
 
