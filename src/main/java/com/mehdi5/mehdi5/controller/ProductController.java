@@ -105,7 +105,16 @@ public class ProductController {
 
 
 
+    @GetMapping("/search-result")
+    public String searchProducts(@RequestParam("keyword") String keyword,
+                                 Model model){
 
+        List<Product> products = (List<Product>) productService.searchProducts( keyword);
+        model.addAttribute("title", "Search Result");
+        model.addAttribute("products", products);
+
+        return "products";
+    }
 
 
 

@@ -25,6 +25,9 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
     @Query("select p from Product p where p.is_activated = true and p.is_deleted = false")
     List<Product> getAllProducts();
 
+    @Query("select p from Product p where p.description like %?1% or p.name like %?1%")
+    List<Product> searchProductsList(String keyword);
+
 
 
 
